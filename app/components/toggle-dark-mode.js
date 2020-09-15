@@ -1,0 +1,1 @@
+export { default } from 'dark-mode/components/toggle-dark-mode';
