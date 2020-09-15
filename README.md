@@ -1,4 +1,4 @@
-dark-mode
+ember-dark-mode
 ==============================================================================
 
 [Short description of the addon.]
@@ -16,7 +16,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install dark-mode
+ember install ember-dark-mode
 ```
 
 

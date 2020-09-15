@@ -1,0 +1,1 @@
+export { default } from 'ember-dark-mode/components/toggle-dark-mode';

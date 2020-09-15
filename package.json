@@ -1,13 +1,13 @@
 {
-  "name": "dark-mode",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "name": "ember-dark-mode",
+  "version": "0.0.1",
+  "description": "A service to handle dark mode on Ember projects",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": "https://github.com/hogansghost/ember-dark-mode",
   "license": "MIT",
-  "author": "",
+  "author": "Greg Hogan",
   "directories": {
     "doc": "doc",
     "test": "tests"

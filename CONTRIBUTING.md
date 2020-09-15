@@ -3,7 +3,7 @@
 ## Installation
 
 * `git clone <repository-url>`
-* `cd dark-mode`
+* `cd ember-dark-mode`
 * `npm install`
 
 ## Linting
