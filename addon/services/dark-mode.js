@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { addListener, removeListener } from '@ember/object/events';
+import { bind } from '@ember/runloop';
 
 
 const darkMediaQuery = 'screen and (prefers-color-scheme: dark)';
@@ -24,7 +24,7 @@ export default class DarkModeService extends Service {
   }
 
   attachListeners() {
-    window.matchMedia(darkMediaQuery).addEventListener('change', this.applyDarkMode);
+    window.matchMedia(darkMediaQuery).addEventListener('change', bind(this, this.applyDarkMode));
   }
 
   setForcedDarkModeFromStorage() {
