@@ -17,22 +17,14 @@ export const DarkModeStates = {
 export default class DarkModeService extends Service {
   @tracked isDark = DarkModeStates.Auto;
 
-  constructor(owner, args) {
-    super(owner, args);
-
+  initialise() {
     this.attachListeners();
     this.applyDarkMode();
     this.setForcedDarkModeFromStorage();
   }
 
   attachListeners() {
-    const mediaQuery = window.matchMedia(darkMediaQuery);
-
-    addListener(mediaQuery, 'change', this, 'applyDarkMode');
-  }
-
-  detachListeners() {
-    removeListener(mediaQuery, 'change', this, 'applyDarkMode');
+    window.matchMedia(darkMediaQuery).addEventListener('change', this.applyDarkMode);
   }
 
   setForcedDarkModeFromStorage() {
@@ -106,5 +98,16 @@ export default class DarkModeService extends Service {
   @action
   manualDarkModeRevoke() {
     this.setCurrentState(DarkModeStates.Auto);
+  }
+
+  @action
+  cycleDarkMode() {
+    if (this.isDarkAuto) {
+      this.manualDarkModeOn();
+    } else if (this.isDarkOn) {
+      this.manualDarkModeOff();
+    } else if (this.isDarkOff) {
+      this.manualDarkModeRevoke();
+    }
   }
 }

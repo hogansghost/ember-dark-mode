@@ -1,6 +1,6 @@
 {
   "name": "ember-dark-mode",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A service to handle dark mode on Ember projects",
   "keywords": [
     "ember-addon"
