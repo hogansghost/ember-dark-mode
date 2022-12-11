@@ -1,6 +1,6 @@
-import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
+import { action } from "@ember/object";
+import { inject as service } from "@ember/service";
+import Component from "@glimmer/component";
 
 export default class DarkModeToggle extends Component {
   @service darkMode;
@@ -10,15 +10,15 @@ export default class DarkModeToggle extends Component {
   }
 
   get statusTitle() {
-    let status = 'Auto';
-
     if (this.darkMode.isDarkOn) {
-      status = 'Dark';
-    } else if (this.darkMode.isDarkOff) {
-      status = 'Light';
+      return "Theme is set to dark mode";
     }
 
-    return status;
+    if (this.darkMode.isDarkOff) {
+      return "Theme is set to light mode";
+    }
+
+    return "Theme is system preference";
   }
 
   @action

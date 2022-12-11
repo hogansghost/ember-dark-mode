@@ -1,17 +1,16 @@
-import Service from '@ember/service';
-import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
-import { bind } from '@ember/runloop';
+import { action } from "@ember/object";
+import { bind } from "@ember/runloop";
+import Service from "@ember/service";
+import { tracked } from "@glimmer/tracking";
 
-
-const darkMediaQuery = 'screen and (prefers-color-scheme: dark)';
+const darkMediaQuery = "screen and (prefers-color-scheme: dark)";
 
 export const DarkModeStates = {
-  Auto: 'auto',
-  AutoOn: 'auto-on',
-  AutoOff: 'auto-off',
-  Off: 'off',
-  On: 'on',
+  Auto: "auto",
+  AutoOn: "auto-on",
+  AutoOff: "auto-off",
+  Off: "off",
+  On: "on",
 };
 
 export default class DarkModeService extends Service {
@@ -24,11 +23,13 @@ export default class DarkModeService extends Service {
   }
 
   attachListeners() {
-    window.matchMedia(darkMediaQuery).addEventListener('change', bind(this, this.applyDarkMode));
+    window
+      ?.matchMedia(darkMediaQuery)
+      .addEventListener("change", bind(this, this.applyDarkMode));
   }
 
   setForcedDarkModeFromStorage() {
-    const storedPreference = window?.localStorage?.getItem('darkMode');
+    const storedPreference = window?.localStorage?.getItem("darkMode");
 
     if (storedPreference === DarkModeStates.On) {
       this.manualDarkModeOn();
@@ -38,9 +39,17 @@ export default class DarkModeService extends Service {
   }
 
   applyDarkMode() {
-    const windowPreference = window?.matchMedia(darkMediaQuery).matches ? DarkModeStates.AutoOn : DarkModeStates.AutoOff;
+    const windowPreference = window?.matchMedia(darkMediaQuery).matches
+      ? DarkModeStates.AutoOn
+      : DarkModeStates.AutoOff;
 
-    if ([DarkModeStates.Auto, DarkModeStates.AutoOff, DarkModeStates.AutoOn].includes(this.isDark)) {
+    if (
+      [
+        DarkModeStates.Auto,
+        DarkModeStates.AutoOff,
+        DarkModeStates.AutoOn,
+      ].includes(this.isDark)
+    ) {
       this.isDark = windowPreference;
     }
 
@@ -54,10 +63,12 @@ export default class DarkModeService extends Service {
   toggleDataTheme(darkMode) {
     if ([DarkModeStates.On, DarkModeStates.AutoOn].includes(darkMode)) {
       this.setDarkModeState(darkMode);
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else if ([DarkModeStates.Off, DarkModeStates.AutoOff].includes(darkMode)) {
+      document?.documentElement?.setAttribute("data-theme", "dark");
+    } else if (
+      [DarkModeStates.Off, DarkModeStates.AutoOff].includes(darkMode)
+    ) {
       this.setDarkModeState(darkMode);
-      document.documentElement.setAttribute('data-theme', 'light');
+      document?.documentElement?.setAttribute("data-theme", "light");
     }
   }
 
@@ -65,9 +76,9 @@ export default class DarkModeService extends Service {
     this.isDark = state;
 
     if (state === DarkModeStates.Auto) {
-      window?.localStorage?.removeItem('darkMode');
+      window?.localStorage?.removeItem("darkMode");
     } else {
-      window?.localStorage?.setItem('darkMode', state);
+      window?.localStorage?.setItem("darkMode", state);
     }
 
     this.applyDarkMode();
@@ -82,7 +93,11 @@ export default class DarkModeService extends Service {
   }
 
   get isDarkAuto() {
-    return [DarkModeStates.Auto, DarkModeStates.AutoOff, DarkModeStates.AutoOn].includes(this.isDark);
+    return [
+      DarkModeStates.Auto,
+      DarkModeStates.AutoOff,
+      DarkModeStates.AutoOn,
+    ].includes(this.isDark);
   }
 
   @action
