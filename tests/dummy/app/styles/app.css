@@ -1,0 +1,27 @@
+html {
+  --background-color: #ffffff;
+  --text-color: #08090A;
+}
+
+html[data-theme="dark"] {
+  --background-color: #08090A;
+  --text-color: #ffffff;
+}
+
+html {
+  font-family: 'Arial', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  transition: color 300ms, background-color 300ms;
+}
+
+body {
+  padding: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
