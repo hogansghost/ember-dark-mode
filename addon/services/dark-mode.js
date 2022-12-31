@@ -17,6 +17,11 @@ export default class DarkModeService extends Service {
   @tracked isDark = DarkModeStates.Auto;
 
   initialise() {
+    // Fastboot / node env safety check;
+    if (typeof window !== 'undefined' || typeof document !== 'undefined') {
+      return;
+    }
+
     this.attachListeners();
     this.applyDarkMode();
     this.setForcedDarkModeFromStorage();
@@ -24,7 +29,7 @@ export default class DarkModeService extends Service {
 
   attachListeners() {
     window
-      ?.matchMedia(darkMediaQuery)
+      ?.matchMedia?.(darkMediaQuery)
       .addEventListener("change", bind(this, this.applyDarkMode));
   }
 
@@ -39,7 +44,7 @@ export default class DarkModeService extends Service {
   }
 
   applyDarkMode() {
-    const windowPreference = window?.matchMedia(darkMediaQuery).matches
+    const windowPreference = window?.matchMedia?.(darkMediaQuery).matches
       ? DarkModeStates.AutoOn
       : DarkModeStates.AutoOff;
 
@@ -61,10 +66,17 @@ export default class DarkModeService extends Service {
   }
 
   toggleDataTheme(darkMode) {
+    // Fastboot / node env safety check;
+    if (!document) {
+      return;
+    }
+
     if ([DarkModeStates.On, DarkModeStates.AutoOn].includes(darkMode)) {
       this.setDarkModeState(darkMode);
       document?.documentElement?.setAttribute("data-theme", "dark");
-    } else if (
+    }
+
+    if (
       [DarkModeStates.Off, DarkModeStates.AutoOff].includes(darkMode)
     ) {
       this.setDarkModeState(darkMode);
@@ -77,7 +89,9 @@ export default class DarkModeService extends Service {
 
     if (state === DarkModeStates.Auto) {
       window?.localStorage?.removeItem("darkMode");
-    } else {
+    }
+
+    if (state !== DarkModeStates.Auto) {
       window?.localStorage?.setItem("darkMode", state);
     }
 
